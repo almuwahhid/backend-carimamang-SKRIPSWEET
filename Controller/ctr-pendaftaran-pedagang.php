@@ -14,13 +14,13 @@
 
     $result = $db->registerPedagang($username, $password, $name, $token, $id_kategori, $caption);
     if($result == "berhasil"){
-       $response['error'] = 0;
+       $response['status'] = 1;
        $response['message'] = 'Device registered successfully';
      }elseif($result == "dobel"){
-       $response['error'] = 1;
+       $response['status'] = 2;
        $response['message'] = 'Device already registered';
      }else{
-       $response['error'] = 2;
+       $response['status'] = 0;
        $response['message'] = $result;
      }
   }else{

@@ -27,8 +27,9 @@ class PedagangAntrean
       $stmt->bind_param("ss",$username, $date);
       $stmt->execute();
       $result = $stmt->get_result();
-      $this->respon["data"] = array();
-      while($row = $result->fetch_assoc()){
+      if($result->num_rows>0){
+        $this->respon["data"] = array();
+        while($row = $result->fetch_assoc()){
           $data = array();
           $data["id_request"] = $row["id_request"];
           $data["nama_konsumen"] = $row["nama_konsumen"];
@@ -37,11 +38,15 @@ class PedagangAntrean
           $data["message"] = $row["pesan_req"];
           $data["waktu"] = $row["waktu_req"];
           array_push($this->respon["data"], $data);
+        }
+        $this->respon["status"] = 1;
+      }else{
+        $this->respon["status"] = 2;
       }
-      $this->respon["status"] = 1;
+
       $stmt->close();
     }else{
-      $this->respon["status"] = 2;
+      $this->respon["status"] = 3;
     }
     return $this->respon;
   }

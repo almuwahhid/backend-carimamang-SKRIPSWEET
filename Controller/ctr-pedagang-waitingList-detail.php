@@ -1,9 +1,9 @@
 <?php
 require_once realpath(dirname(__FILE__). '/..') .'/Model/PedagangWaitingListDetail.php';
-  if($_SERVER['REQUEST_METHOD']=='GET'){
-    $id_request = $_GET['id_request'];
-    $status = $_GET['status'];
-    $message = $_GET['message'];
+  if($_SERVER['REQUEST_METHOD']=='POST'){
+    $id_request = $_POST['id_request'];
+    $status = $_POST['status'];
+    $message = $_POST['message'];
 
     $db = new PedagangWaitingListDetail();
     $result = $db->updateRequest($id_request, $status, $message);

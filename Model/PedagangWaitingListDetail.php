@@ -31,6 +31,7 @@ class PedagangWaitingListDetail
   }
 
   public function addReply($id_req, $message){
+    date_default_timezone_set('Asia/Jakarta');
     $t=time();
     $tanggal_now = date("Y-m-d", $t);
     $waktu_now = date("H:m", $t);

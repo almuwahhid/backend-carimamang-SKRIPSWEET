@@ -18,5 +18,18 @@
       $stmt->close();
       return $num_rows > 0;
     }
+    public function updateToken($username, $token){
+      $stmt = $this->con->prepare("UPDATE konsumen SET
+                          token_konsumen = ?
+                          WHERE username_konsumen= ?");
+      $stmt->bind_param("ss", $token, $username);
+      if($stmt->execute()){
+        $stmt->close();
+         return 1;
+      }else{
+        $stmt->close();
+        return 0; //gagal
+      }
+    }
   }
 ?>

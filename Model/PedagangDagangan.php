@@ -1,8 +1,8 @@
 <?php
 /**
- * 14/06/2017
+ * 29/06/2017
  */
-class PedagangWaitingList
+class PedagangDagangan
 {
   private $con;
   private $auth;
@@ -16,27 +16,22 @@ class PedagangWaitingList
     $this->con = $db->connect();
     $this->auth = new AuthPedagang($this->con);
   }
-  public function getData($username, $date){
+  public function getData($username){
 
     if($this->auth->isLogin($username)){
-      $stmt = $this->con->prepare("SELECT * FROM request
-                                    JOIN konsumen ON request.username_konsumen = konsumen.username_konsumen
-                                    WHERE username_pedagang = ?
-                                    AND tanggal_req = ?
-                                    AND status_req = 0");
-      $stmt->bind_param("ss",$username, $date);
+      $stmt = $this->con->prepare("SELECT * FROM dagangan
+                                    WHERE username_pedagang = ?");
+      $stmt->bind_param("s",$username);
       $stmt->execute();
       $result = $stmt->get_result();
       if($result->num_rows>0){
         $this->respon["data"] = array();
         while($row = $result->fetch_assoc()){
           $data = array();
-          $data["id_request"] = $row["id_request"];
-          $data["nama_konsumen"] = $row["nama_konsumen"];
-          $data["lat"] = $row["lattitude_konsumen"];
-          $data["lng"] = $row["longitude_konsumen"];
-          $data["message"] = $row["pesan_req"];
-          $data["waktu"] = $row["waktu_req"];
+          $data["id_dagangan"] = $row["id_dagangan"];
+          $data["nama_dagangan"] = $row["nama_dagangan"];
+          $data["harga_dagangan"] = $row["harga_dagangan"];
+          $data["keterangan"] = $row["keterangan"];
           array_push($this->respon["data"], $data);
         }
         $this->respon["status"] = 1;

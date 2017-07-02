@@ -4,14 +4,26 @@ require_once realpath(dirname(__FILE__). '/..') .'/Model/PedagangLogin.php';
   if($_SERVER['REQUEST_METHOD']=='POST'){
     $password = md5($_POST['password']);
     $username = $_POST['username'];
+    $token = $_POST['token'];
 
     $db = new PedagangLogin();
     $result = $db->loginPedagang($username, $password);
     if($result){
-      $response['error'] = 0;
-      $response['message'] = 'Berhasil Login';
+      if($token != "undefined"){
+        $result2 = $db->updateToken($username, $token);
+        if($result2){
+          $response['status'] = 1;
+          $response['message'] = 'Berhasil Login';
+        }else{
+          $response['status'] = 2;
+          $response['message'] = 'Berhasil Login';
+        }
+      }else{
+        $response['status'] = 1;
+        $response['message'] = 'Berhasil Login';
+      }
     }else{
-      $response['error'] = 1;
+      $response['status'] = 0;
       $response['message'] = 'Gagal Login';
     }
   }else{

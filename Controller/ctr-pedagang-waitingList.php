@@ -1,5 +1,6 @@
 <?php
 require_once realpath(dirname(__FILE__). '/..') .'/Model/PedagangWaitingList.php';
+date_default_timezone_set('Asia/Jakarta');
   if($_SERVER['REQUEST_METHOD']=='POST'){
     $username = $_POST['username'];
 

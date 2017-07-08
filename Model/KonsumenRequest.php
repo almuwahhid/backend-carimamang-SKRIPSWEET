@@ -10,6 +10,9 @@
     {
       require_once realpath(dirname(__FILE__). '/..') . '/DbConnect.php';
       require_once realpath(dirname(__FILE__)) . '/Auth/AuthPedagang.php';
+      $db = new DbConnect();
+      $this->con = $db->connect();
+      $this->auth = new AuthPedagang($this->con);
     }
 
     function setRequest($username, $data){

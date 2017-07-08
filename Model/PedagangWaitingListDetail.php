@@ -23,11 +23,10 @@ class PedagangWaitingListDetail
       $stmt->bind_param("ii",$status, $id_req);
       if($stmt->execute()){
         $stmt->close();
-        $this->respon["status"] = $this->addReply($id_req, $message);
+        return $this->addReply($id_req, $message);
       }else{
-        $this->respon["status"] = 0;
+        return 0;
       }
-    return $this->respon;
   }
 
   public function addReply($id_req, $message){
@@ -48,6 +47,22 @@ class PedagangWaitingListDetail
          return 3; //gagal
        }
     }
+  }
+
+  function ambilTokenByUsername($username){
+    $stmt = $this->con->prepare("SELECT token_konsumen FROM konsumen WHERE username_konsumen = ?");
+    $stmt->bind_param("s",$username);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+    return array($result['token_konsumen']);
+  }
+
+  function ambilNamaPedagang($username_pedagang){
+    $stmt = $this->con->prepare("SELECT nama_pedagang FROM pedagang WHERE username_pedagang = ?");
+    $stmt->bind_param("s",$username_pedagang);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+    return $result['nama_pedagang'];
   }
 }
 ?>

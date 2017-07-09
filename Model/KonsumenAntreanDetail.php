@@ -11,8 +11,8 @@
 
     public function ambilData($id_request){
       $stmt = $this->con->prepare("SELECT pesan_reply FROM reply
-        JOIN request ON request.id_request = reply.id_request
-        WHERE request.id_request = ?");
+                                    JOIN request ON request.id_request = reply.id_request
+                                    WHERE request.id_request = ?");
         $stmt->bind_param("i",$id_request);
         $stmt->execute();
         $result = $stmt->get_result();

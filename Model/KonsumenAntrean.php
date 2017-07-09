@@ -32,9 +32,10 @@ class KonsumenAntrean
         while($row = $result->fetch_assoc()){
           $data = array();
           $data["id_request"] = $row["id_request"];
+          $data["username_pedagang"] = $row["username_pedagang"];
           $data["nama_pedagang"] = $row["nama_pedagang"];
-          $data["message"] = $row["pesan_req"];
           $data["waktu"] = $row["waktu_req"];
+          $data["message"] = $row["pesan_req"];
           $data["status_req"] = $row["status_req"];
           $data["nama_kategori"] = $row["nama_kategori"];
           array_push($this->respon["data"], $data);
